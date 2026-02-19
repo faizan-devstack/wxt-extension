@@ -5,7 +5,7 @@ import { Slot } from "radix-ui"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-solid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas-bg disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 shrink-0 select-none group/button",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-solid focus-visible:ring-offset-2 focus-visible:ring-offset-canvas-bg disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 shrink-0 select-none group/button",
   {
     variants: {
       variant: {
@@ -23,13 +23,13 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-9 gap-1.5 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
-        xs: "h-7 gap-1 px-2.5 text-xs [&_svg:not([class*='size-'])]:size-3.5",
-        sm: "h-8 gap-1.5 px-3 text-sm [&_svg:not([class*='size-'])]:size-4",
-        lg: "h-10 gap-2 px-6 text-base",
+        xs: "h-7 gap-1 rounded-md px-2.5 text-xs [&_svg:not([class*='size-'])]:size-3.5",
+        sm: "h-8 gap-1.5 rounded-md px-3 text-sm [&_svg:not([class*='size-'])]:size-4",
+        lg: "h-10 gap-2 rounded-lg px-6 text-base",
         icon: "h-9 w-9",
-        "icon-xs": "h-7 w-7 [&_svg:not([class*='size-'])]:size-3.5",
-        "icon-sm": "h-8 w-8",
-        "icon-lg": "h-10 w-10",
+        "icon-xs": "h-7 w-7 rounded-md [&_svg:not([class*='size-'])]:size-3.5",
+        "icon-sm": "h-8 w-8 rounded-md",
+        "icon-lg": "h-10 w-10 rounded-lg",
       },
     },
     defaultVariants: {
