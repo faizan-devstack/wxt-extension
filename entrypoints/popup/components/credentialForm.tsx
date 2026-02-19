@@ -1,4 +1,7 @@
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
 export default function CredentialForm() {
@@ -18,7 +21,7 @@ export default function CredentialForm() {
 
     return (
         <div className="relative bg-canvas-bg flex min-h-screen items-center justify-center pt-12 p-6">
-            <div className="absolute right-6 top-6 ">
+            <div className="absolute right-2 top-0">
                 <ThemeSwitcher />
             </div>
 
@@ -31,71 +34,41 @@ export default function CredentialForm() {
                 </p>
 
                 {/* Card */}
-                <div className="bg-canvas-bg-subtle border border-canvas-border rounded-2xl p-6">
+                <div className="bg-canvas-bg-subtle border border-canvas-border/50 rounded-2xl p-6">
                     {/* Endpoint */}
                     <div className="mb-5">
-                        <label className="block text-sm font-medium text-canvas-text mb-2">
+                        <Label>
                             Endpoint
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                             type="text"
                             placeholder="https://api.example.com/v1"
                             value={endpoint}
                             onChange={(e) => setEndpoint(e.target.value)}
-                            className="
-                w-full rounded-lg 
-                bg-canvas-base 
-                border border-canvas-border 
-                px-4 py-2.5 text-sm 
-                text-canvas-text 
-                placeholder-canvas-text/50 
-                focus:outline-none 
-                focus:border-primary-border-hover 
-                focus:ring-2 focus:ring-primary-solid/30
-                transition-all duration-200
-              "
                         />
                     </div>
 
                     {/* API Key */}
                     <div className="mb-6">
-                        <label className="block text-sm font-medium text-canvas-text mb-2">
+                        <Label>
                             API Key
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                             type="password"
                             placeholder="Enter your API key"
                             value={apiKey}
                             onChange={(e) => setApiKey(e.target.value)}
-                            className="
-                w-full rounded-lg 
-                bg-canvas-base 
-                border border-canvas-border 
-                px-4 py-2.5 text-sm 
-                text-canvas-text 
-                placeholder-canvas-text/50 
-                focus:outline-none 
-                focus:border-primary-border-hover 
-                focus:ring-2 focus:ring-primary-solid/30
-                transition-all duration-200
-              "
                         />
                     </div>
 
-                    {/* Save Button */}
-                    <button
+                    <Button
                         onClick={handleSave}
-                        className="
-              w-full flex items-center justify-center gap-2 
-              bg-primary-solid hover:bg-primary-solid-hover 
-              text-primary-on-primary 
-              font-medium py-2.5 rounded-xl 
-              transition-all duration-200 
-              active:scale-[0.98]
-            "
+                        variant='default'
+                        className="w-full"
+                        size='xs'
                     >
                         Save
-                    </button>
+                    </Button>
 
                     {saved && (
                         <p className="text-success-text text-sm font-medium text-center mt-3 animate-fade-in">
@@ -108,8 +81,8 @@ export default function CredentialForm() {
                 <p className="text-canvas-text/60 text-xs text-center mt-6">
                     Your API credentials are securely processed in browser storage
                 </p>
-                <p className="text-canvas-text/50 text-xs text-center mt-2">
-                    Copyright Hasan-py © 2025
+                <p className="text-canvas-text/60 text-xs text-center mt-2">
+                    Copyright Faizan © 2026
                 </p>
             </div>
         </div>
