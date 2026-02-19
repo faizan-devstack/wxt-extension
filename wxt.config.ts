@@ -9,7 +9,14 @@ export default defineConfig({
       name: "WXT Example",
       description: "Reddit posts & comments reader",
       version:"1.0.0",
-      permissions: ["storage", "tabs"]
+      permissions: [
+        "storage",
+         "tabs",
+         "activeTab",
+         "scripting",
+         "contextMenus",
+         "declarativeNetRequest"
+      ]
     }
   }
 });
