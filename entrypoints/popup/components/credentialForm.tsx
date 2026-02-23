@@ -11,8 +11,6 @@ export default function CredentialForm() {
     const [showApiKey, setShowApiKey] = useState(false);
     const { formData, setFormData } = useFormData()
 
-    const isValid = formData?.endpoint.trim() !== "" && formData?.apiKey.trim() !== "";
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev: FormData) => ({
@@ -43,19 +41,6 @@ export default function CredentialForm() {
                 </p>
 
                 <form onSubmit={handleSubmit} className="bg-canvas-bg-subtle border border-canvas-border/50 rounded-2xl p-6">
-                    {/* Endpoint */}
-                    <div className="mb-5">
-                        <Label>Endpoint</Label>
-                        <Input
-                            required
-                            name="endpoint"
-                            type="url"
-                            placeholder="https://api.example.com/v1"
-                            value={formData?.endpoint}
-                            onChange={handleChange}
-                        />
-                    </div>
-
                     {/* API Key */}
                     <div className="mb-6">
                         <Label>API Key</Label>
@@ -86,10 +71,10 @@ export default function CredentialForm() {
                     </div>
 
                     <Button
-                        disabled={!isValid}
                         type="submit"
                         variant="default"
                         className="w-full"
+                        disabled={!formData?.apiKey}
                     >
                         Save
                     </Button>

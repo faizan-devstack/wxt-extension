@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 
 export interface FormData {
     apiKey: string;
-    endpoint: string;
 }
 
 export const useFormData = () => {
     const [formData, setFormData] = useState<FormData>({
-        apiKey: "",
-        endpoint: "",
+        apiKey: ""
     });
 
     useEffect(() => {

@@ -15,7 +15,7 @@ export default function Search({
     };
 
     return (
-        <div className="p-3 border-b shadow-md shadow-canvas-border/70 border-canvas-border/50 flex items-center">
+        <div className="p-3 border-b z-10 shadow-md shadow-canvas-border/50 border-canvas-border/50 flex items-center">
             <div className="flex items-center w-full space-x-2">
                 <Input
                     type="text"
