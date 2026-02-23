@@ -6,7 +6,7 @@ export default defineConfig({
   manifest: ({browser, manifestVersion, mode, command}) => {
     return{
       manifest_version: 2,
-      name: "WXT Example",
+      name: "WXT Extension",
       description: "Reddit posts & comments reader",
       version:"1.0.0",
       permissions: [
