@@ -8,7 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
 
 interface CommentModalProps {
-    post: IPost[]
+    post: IPost
     comments: IComment[];
     onRemove: () => void;
 }
@@ -45,7 +45,7 @@ export default function CommentModal({
                 This is the prompt: ${searchQuery}
 
                 This is the dataset of comments in js array: '''${JSON.stringify(comments)}'''
-                This is the post dataset: '''${JSON.stringify(post[0])}'''
+                This is the post dataset: '''${JSON.stringify(post)}'''
 
                 Now based on this comments dataset and the prompt,
                 give me a well-structured markdown response that answers what the prompt asked.
@@ -81,6 +81,8 @@ export default function CommentModal({
         }
     };
 
+    const hasAiResponse = aiResponse.trim().length > 0;
+
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-3">
             <div className="rounded-xl overflow-hidden flex flex-col w-full max-w-2xl h-[70vh] bg-canvas-base">
@@ -92,25 +94,25 @@ export default function CommentModal({
                 <Search handleSearch={handleSearch} />
 
                 {loading && (
-                    <p className="text-center text-canvas-text-contrast text-2xl py-8">
+                    <p className="text-center flex h-full w-full items-center justify-center text-canvas-text">
                         Loading...
                     </p>
                 )}
 
-                <div className="flex-1 overflow-y-auto p-3 space-y-2">
-                    {aiResponse ? (
+                <div className="flex-1 overflow-y-auto px-3 py-5 space-y-2">
+                    {!loading && hasAiResponse ? (
                         <div className="prose prose-invert prose-headings:text-canvas-text-contrast prose-p:text-canvas-text max-w-none bg-canvas-base rounded-xl p-6 border border-canvas-border/50">
                             <ReactMarkdown>{aiResponse}</ReactMarkdown>
                         </div>
-                    ) : comments.length === 0 ? (
-                        <div className="text-center py-12 text-canvas-text">
+                    ) : !loading && comments.length === 0 ? (
+                        <div className="text-center flex h-full w-full items-center justify-center text-canvas-text">
                             No comments available.
                         </div>
-                    ) : (
+                    ) : !loading ? (
                         comments.map((comment) => (
                             <div
                                 key={comment.id}
-                                className="border border-canvas-border/50 rounded-lg p-3 transition-all duration-300 bg-canvas-base cursor-pointer hover:shadow-md hover:shadow-primary-solid/20 hover:bg-primary-bg-subtle hover:border-primary-border/50"
+                                className="border border-canvas-border/50 rounded-lg p-3 transition-all duration-300 bg-canvas-base cursor-pointer hover:shadow-md hover:shadow-primary-solid/10 hover:bg-primary-bg-subtle hover:border-primary-border/50"
                                 onClick={() => handleCommentClick(comment)}
                             >
                                 <div className="flex items-center gap-3 mb-3 justify-between flex-wrap">
@@ -127,7 +129,7 @@ export default function CommentModal({
                                 </p>
                             </div>
                         ))
-                    )}
+                    ) : null}
                 </div>
             </div>
         </div>

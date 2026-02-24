@@ -18,6 +18,7 @@ export default function PostModal({
     const { formData } = useFormData();
     const [loading, setLoading] = useState(false);
     const [geminiResponse, setGeminiResponse] = useState<IPost[]>([]);
+    const [hasSearched, setHasSearched] = useState(false);
 
     const handlePostClick = (post: IPost) => {
         if (post.link) {
@@ -26,8 +27,17 @@ export default function PostModal({
     };
 
     const handleSearch = async (searchQuery: string) => {
+        const trimmed = searchQuery.trim();
+        if (!trimmed) {
+            // Empty query: reset to original posts list
+            setGeminiResponse([]);
+            setHasSearched(false);
+            return;
+        }
+
         setLoading(true);
         setGeminiResponse([]);
+        setHasSearched(true);
 
         try {
             const openai = new OpenAI({
@@ -73,30 +83,32 @@ export default function PostModal({
         }
     };
 
+    const displayPosts = hasSearched ? geminiResponse : posts;
+
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-3">
             <div id="reddit-modal" className="rounded-xl overflow-hidden flex flex-col w-full max-w-2xl h-[70vh] bg-canvas-base">
                 <Header
                     title="Selected Posts"
-                    count={posts?.length}
+                    count={displayPosts.length}
                     onRemove={onRemove}
                 />
                 <Search handleSearch={handleSearch} />
 
                 {loading && (
-                    <p className="text-center text-canvas-text-contrast text-lg py-8">Loading...</p>
+                    <p className="text-center flex h-full w-full items-center justify-center text-canvas-text">Loading...</p>
                 )}
 
-                <div className="flex-1 overflow-y-auto p-3 space-y-2">
-                    {(geminiResponse.length > 0 ? geminiResponse : posts)?.length === 0 ? (
-                        <div className="text-center py-12 text-canvas-text">
-                            No posts available.
+                <div className="flex-1 overflow-y-auto px-3 py-5 space-y-2">
+                    {!loading && displayPosts.length === 0 ? (
+                        <div className="text-center flex h-full w-full items-center justify-center text-canvas-text">
+                            {hasSearched ? "No related post found" : "No posts available."}
                         </div>
                     ) : (
-                        (geminiResponse.length > 0 ? geminiResponse : posts)?.map((post) => (
+                        displayPosts.map((post) => (
                             <div
                                 key={post.id}
-                                className="border border-canvas-border/50 rounded-lg p-3 transition-all duration-300 bg-canvas-base cursor-pointer hover:shadow-md hover:shadow-primary-solid/20 hover:bg-primary-bg-subtle hover:border-primary-border/50"
+                                className="border border-canvas-border/50 rounded-lg p-3 transition-all duration-300 bg-canvas-base cursor-pointer hover:shadow-md hover:shadow-primary-solid/10 hover:bg-primary-bg-subtle hover:border-primary-border/50"
                                 onClick={() => handlePostClick(post)}
                             >
                                 {post?.tag && (

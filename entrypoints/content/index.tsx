@@ -5,6 +5,7 @@ import PostModal from "./posts";
 import { ContentScriptContext } from "wxt/utils/content-script-context";
 import CommentModal from "./comments";
 import { extractRedditCommentsFromDOM, extractRedditPostsFromDOM } from "./scripts/scrap";
+import { attachThemeToElement } from "./common/theme";
 
 export default defineContentScript({
   matches: ['*://*/*'],
@@ -36,10 +37,16 @@ const CreateUI = async (
   ctx: ContentScriptContext,
   type: "posts" | "comments"
 ) => {
+  let detachTheme: undefined | (() => void);
+
   return createShadowRootUi(ctx, {
     name: "post-element",
     position: "inline",
     onMount: (uiContainer, shadow, shadowContainer) => {
+      void attachThemeToElement(uiContainer).then((detach) => {
+        detachTheme = detach;
+      });
+
       return CreateContentElement(uiContainer, shadowContainer, (root) => {
         const onRemove = () => {
           root?.unmount();
@@ -64,6 +71,7 @@ const CreateUI = async (
       }) as ReactDOM.Root;
     },
     onRemove(root) {
+      detachTheme?.();
       root?.unmount();
     },
   });

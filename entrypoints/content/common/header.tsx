@@ -30,9 +30,9 @@ export default function Header({
                 size="icon"
                 onClick={onRemove}
                 aria-label="Close modal"
-                className="cursor-pointer"
+                className="cursor-pointer group"
             >
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5 text-canvas-text group-hover:text-canvas-text-contrast transition-colors duration-300" />
             </Button>
         </div>
     );

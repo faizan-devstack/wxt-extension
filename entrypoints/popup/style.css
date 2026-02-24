@@ -1,14 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
- 
+
 @custom-variant dark (&:is(.dark *));
 
-/* Generated with https://designrift.dev */ 
-/* @import "tailwindcss */ 
+/* Generated with https://designrift.dev */
+/* @import "tailwindcss */
 
 /* LIGHT THEME */
-:root {
+.theme-root {
 
   /* CANVAS */
   --canvas-base: #fdfcfd;
@@ -117,7 +117,7 @@
 }
 
 /* DARK THEME */
-.dark {
+.theme-root.dark {
 
   /* CANVAS */
   --canvas-base: #161618;
@@ -324,4 +324,118 @@
   --color-info-text-contrast: var(--info-text-contrast);
   --color-info-on-info: var(--info-on-info);
 
+}
+
+/* Base markdown text respects theme colors */
+.theme-root .prose {
+  color: var(--canvas-text-contrast);
+}
+
+/* Body text elements */
+.theme-root .prose p,
+.theme-root .prose li,
+.theme-root .prose span,
+.theme-root .prose blockquote,
+.theme-root .prose td,
+.theme-root .prose th,
+.theme-root .prose figcaption {
+  color: var(--canvas-text);
+}
+
+/* Headings (keep stronger contrast) */
+.theme-root .prose h1,
+.theme-root .prose h2,
+.theme-root .prose h3,
+.theme-root .prose h4,
+.theme-root .prose h5,
+.theme-root .prose h6 {
+  color: var(--canvas-text-contrast);
+}
+
+/* Links */
+.theme-root .prose a {
+  color: var(--canvas-link, var(--canvas-text-contrast));
+}
+
+.theme-root .prose a:hover {
+  color: var(--canvas-link-hover, var(--canvas-text));
+}
+
+/* Strong & emphasis */
+.theme-root .prose strong,
+.theme-root .prose b {
+  color: var(--canvas-text-contrast);
+}
+
+.theme-root .prose em,
+.theme-root .prose i {
+  color: var(--canvas-text);
+}
+
+/* Code */
+.theme-root .prose code {
+  color: var(--canvas-code-text, var(--canvas-text-contrast));
+  background-color: var(--canvas-code-bg, transparent);
+}
+
+.theme-root .prose pre {
+  color: var(--canvas-code-text, var(--canvas-text-contrast));
+  background-color: var(--canvas-code-bg, transparent);
+}
+
+/* Lists */
+.theme-root .prose ul,
+.theme-root .prose ol {
+  color: var(--canvas-text);
+}
+
+.theme-root .prose li::marker {
+  color: var(--canvas-text);
+}
+
+/* Horizontal rule */
+.theme-root .prose hr {
+  border-color: var(--canvas-border, currentColor);
+}
+
+/* Tables */
+.theme-root .prose table {
+  color: var(--canvas-text);
+}
+
+.theme-root .prose thead {
+  color: var(--canvas-text-contrast);
+}
+
+/* Images (optional tweaks) */
+.theme-root .prose img {
+  border-color: var(--canvas-border, transparent);
+}
+
+/* Blockquote styling */
+.theme-root .prose blockquote {
+  border-left-color: var(--canvas-border, currentColor);
+}
+
+/* Themed scrollbars for all scrollable areas in the extension UI */
+.theme-root,
+.theme-root * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--canvas-border) transparent;
+}
+
+.theme-root::-webkit-scrollbar,
+.theme-root *::-webkit-scrollbar {
+  width: 8px;
+}
+
+.theme-root::-webkit-scrollbar-track,
+.theme-root *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.theme-root::-webkit-scrollbar-thumb,
+.theme-root *::-webkit-scrollbar-thumb {
+  background-color: var(--canvas-border);
+  border-radius: 999px;
 }
